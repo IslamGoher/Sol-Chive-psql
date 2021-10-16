@@ -1,4 +1,4 @@
-# Sol-Chive-Islam
+# Sol-Chive
 
 Solution Archive is an open source application that allows user to archive an important problems and their solutions, that will help developers for incoming interview preparation.
 
