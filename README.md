@@ -8,3 +8,6 @@ Solution Archive is an open source application that allows user to archive an im
 
 # API Documentation
 [solchive.docs.apiary.io](https://solchive.docs.apiary.io/#)
+
+# Database Schema
+[here](https://dbdesigner.page.link/9Ru4djvHKUpYUMoV9)
