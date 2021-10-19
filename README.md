@@ -5,3 +5,6 @@ Solution Archive is an open source application that allows user to archive an im
 # design
 ![|512x397,10%](https://cdn.discordapp.com/attachments/535594078461755407/898972116236505138/unknown.png)
 [pdf here](https://cdn.discordapp.com/attachments/791772743137886218/898968386220994610/sol-chive_v2.pdf)
+
+# API Documentation
+[solchive.docs.apiary.io](https://solchive.docs.apiary.io/#)
