@@ -1,0 +1,37 @@
+{
+  "name": "sol-chive-psql",
+  "version": "1.0.0",
+  "description": "Solution Archive is an open source application that allows user to archive an important problems and their solutions, that will help developers for incoming interview preparation.",
+  "main": "src/app.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "dev": "nodemon src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IslamGoher/Sol-Chive-psql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IslamGoher/Sol-Chive-psql/issues"
+  },
+  "homepage": "https://github.com/IslamGoher/Sol-Chive-psql#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jsonwebtoken": "^8.5.6",
+    "@types/node": "^16.11.9",
+    "@types/pg": "^8.6.1",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.1"
+  }
+}
