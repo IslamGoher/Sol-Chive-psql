@@ -1,0 +1,28 @@
+{
+  "openapi": "3.0.0",
+  "info": {  
+		"title": "Sol-Chive API",
+    "description": "An API documentation for Sol-Chive website",
+    "version": "1.0.0"
+  },
+  "servers" : [
+    {
+      "url": "localhost:3000",
+      "description": "local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "authentication methods"
+    },
+    {
+      "name": "Solution",
+      "description": "solution APIs"
+    },
+    {
+      "name": "user",
+      "description": "user APIs"
+    }
+  ]
+}
