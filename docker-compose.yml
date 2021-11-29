@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  server:
+    build: .
+    ports:
+      - '3000:3000'
+  database:
+    image: 'postgres'
+    ports:
+      - '7000:5432'
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '123456'
+    volumes:
+      - data:/var/lib/postgresql/data
+
+volumes:
+  data:
