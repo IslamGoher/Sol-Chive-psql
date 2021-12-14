@@ -19,6 +19,10 @@ app.use(express.json());
 // handling x-www-form-urlencoded requests
 app.use(express.urlencoded({extended: false}));
 
+// create database
+import { createDB } from "./queries/create-db";
+createDB();
+
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`server is running on port ${port} in ${process.env.NODE_ENV} mode`);
