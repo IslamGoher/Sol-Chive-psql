@@ -1,10 +1,12 @@
 import express, { Application } from "express";
 import dotenv from "dotenv";
+dotenv.config({path: __dirname + "/../.env"});
 import morgan from "morgan";
+import { createDB } from "./queries/create-db";
+import { createTables } from "./queries/create-tables";
 
 const app: Application = express();
 
-dotenv.config({path: __dirname + "/../.env"});
 
 const port = process.env.PORT || 3000;
 
@@ -20,8 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // create database
-import { createDB } from "./queries/create-db";
 createDB();
+
+// create tables
+createTables();
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
