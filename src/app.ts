@@ -7,8 +7,17 @@ import { createTables } from "./queries/create-tables";
 
 const app: Application = express();
 
-
 const port = process.env.PORT || 3000;
+
+(
+  async function() {
+    // create database
+    await createDB();
+    
+    // create tables
+    await createTables();
+  }
+)();
 
 // morgan configuration
 if(process.env.NODE_ENV === "development") {
@@ -20,12 +29,6 @@ app.use(express.json());
 
 // handling x-www-form-urlencoded requests
 app.use(express.urlencoded({extended: false}));
-
-// create database
-createDB();
-
-// create tables
-createTables();
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
