@@ -4,6 +4,7 @@ dotenv.config({path: __dirname + "/../.env"});
 import morgan from "morgan";
 import { createDB } from "./queries/create-db";
 import { createTables } from "./queries/create-tables";
+import { errorHandler } from "./middlewares/error-handler";
 
 const app: Application = express();
 
@@ -29,6 +30,9 @@ app.use(express.json());
 
 // handling x-www-form-urlencoded requests
 app.use(express.urlencoded({extended: false}));
+
+// using error handler
+app.use(errorHandler);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
