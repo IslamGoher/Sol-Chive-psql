@@ -1,12 +1,23 @@
 import express, { Application } from "express";
 import dotenv from "dotenv";
+dotenv.config({path: __dirname + "/../.env"});
 import morgan from "morgan";
+import { createDB } from "./queries/create-db";
+import { createTables } from "./queries/create-tables";
 
 const app: Application = express();
 
-dotenv.config({path: __dirname + "/../.env"});
-
 const port = process.env.PORT || 3000;
+
+(
+  async function() {
+    // create database
+    await createDB();
+    
+    // create tables
+    await createTables();
+  }
+)();
 
 // morgan configuration
 if(process.env.NODE_ENV === "development") {
