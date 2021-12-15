@@ -5,6 +5,7 @@ import morgan from "morgan";
 import { createDB } from "./queries/create-db";
 import { createTables } from "./queries/create-tables";
 import { errorHandler } from "./middlewares/error-handler";
+import { notFound } from "./controllers/not-found";
 
 const app: Application = express();
 
@@ -30,6 +31,9 @@ app.use(express.json());
 
 // handling x-www-form-urlencoded requests
 app.use(express.urlencoded({extended: false}));
+
+// using routers
+app.use(notFound);
 
 // using error handler
 app.use(errorHandler);
