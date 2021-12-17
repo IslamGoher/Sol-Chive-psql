@@ -6,6 +6,7 @@ import { createDB } from "./queries/create-db";
 import { createTables } from "./queries/create-tables";
 import { errorHandler } from "./middlewares/error-handler";
 import { notFound } from "./controllers/not-found";
+import { router as userRouter } from "./routes/user";
 
 const app: Application = express();
 
@@ -33,6 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // using routers
+app.use("/api/v1", userRouter);
 app.use(notFound);
 
 // using error handler
