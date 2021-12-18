@@ -12,11 +12,6 @@ export const getFullUserProfile = async (
   next: NextFunction
 ) => {
   try {
-    // check if user enter email
-    if (!req.query.email) {
-      return next(new ErrorResponse(400, "please enter email"));
-    }
-
     // get user data
     const userData = await pool.query(userProfileQueries, [req.query.email]);
 
