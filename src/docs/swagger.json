@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.0",
-  "info": {  
-		"title": "Sol-Chive API",
+  "info": {
+    "title": "Sol-Chive API",
     "description": "An API documentation for Sol-Chive website",
     "version": "1.0.0"
   },
-  "servers" : [
+  "servers": [
     {
-      "url": "localhost:3000",
+      "url": "http://localhost:3000",
       "description": "local server"
     }
   ],
@@ -24,5 +24,103 @@
       "name": "user",
       "description": "user APIs"
     }
-  ]
+  ],
+  "paths": {
+    "/api/v1/user": {
+      "get": {
+        "summary": "Get full user profile for authenticated or Anonymous user",
+        "tags": ["user"],
+        "description": "Get user data for user profile page.",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "email of user, enter it to get user data",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "user name"
+                    },
+                    "picture": {
+                      "type": "string",
+                      "description": "link to user picture"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "user email"
+                    },
+                    "about": {
+                      "type": "string",
+                      "description": "about the user"
+                    },
+                    "contacts": {
+                      "type": "string",
+                      "description": "user contacts such as phone number and linkedin profile"
+                    },
+                    "problem_count": {
+                      "type": "integer",
+                      "description": "description user wrote about him self"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, which mean that email is missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found, which mean that there's no user found with given email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
