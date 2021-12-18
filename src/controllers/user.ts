@@ -18,9 +18,7 @@ export const getFullUserProfile = async (
     }
 
     // get user data
-    const userData = await pool.query(userProfileQueries.userData, [
-      req.query.email,
-    ]);
+    const userData = await pool.query(userProfileQueries, [req.query.email]);
 
     // check if email matches
     if (userData.rowCount === 0) {
@@ -29,19 +27,8 @@ export const getFullUserProfile = async (
       );
     }
 
-    // get problem count for user
-    const problemCount = (
-      await pool.query(userProfileQueries.problemCount, [
-        userData.rows[0].user_id,
-      ])
-    ).rows[0].count;
-
-    let resData = userData.rows[0];
-    resData.problemCount = problemCount;
-    delete resData.user_id;
-    
     // send response
-    res.status(200).json(resData);
+    res.status(200).json(userData.rows[0]);
   } catch (error) {
     next(error);
   }

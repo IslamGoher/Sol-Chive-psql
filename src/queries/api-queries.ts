@@ -1,19 +1,12 @@
-// database queries of api get full user profile
-export const userProfileQueries = {
-  userData: `
-    SELECT
-      user_id, name, picture, email, about, contacts
-    FROM
-      users
-    WHERE
-      email = $1;
-  `,
-  problemCount: `
-    SELECT
-      COUNT(solution_id)
-    FROM
-      solutions
-    WHERE
-      user_id = $1
-  `,
-};
+// database querie of api "get full user profile"
+export const userProfileQueries = `
+  SELECT
+    name, picture, email, about, contacts,
+    COUNT(solution_id) AS problem_count
+  FROM
+    users, solutions
+  WHERE
+    users.email = $1 AND solutions.user_id = users.user_id
+  GROUP BY
+    users.user_id;
+`;
