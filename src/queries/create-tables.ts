@@ -21,13 +21,8 @@ export async function createTables() {
         source VARCHAR (255) NOT NULL,
         my_solution VARCHAR NOT NULL,
         perfect_solution VARCHAR,
+        tags VARCHAR[],
         user_id INT REFERENCES users(user_id) ON DELETE CASCADE
-      );
-
-      CREATE TABLE IF NOT EXISTS solution_tag(
-        solution_tag_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-        solution_id INT REFERENCES solutions(solution_id) ON DELETE CASCADE,
-        tag VARCHAR (255) NOT NULL
       );
     `);
   
