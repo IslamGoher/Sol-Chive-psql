@@ -16,7 +16,7 @@ export const getAllSolutionsAnonymous = async (
     const email = req.params.email;
 
     // sort solutions by date
-    let sortBy = getSortingQuery(`${req.query.sort}`);
+    let sortBy = getSortingQuery(`${req.query.sortbydate}`);
 
     const solutionsData = await pool.query(
       `${solutionsAnonymousQueries} ${sortBy};`,
