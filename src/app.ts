@@ -9,6 +9,7 @@ import { createTables } from "./queries/create-tables";
 import { errorHandler } from "./middlewares/error-handler";
 import { notFound } from "./controllers/not-found";
 import { router as userRouter } from "./routes/user";
+import { router as solutionRouter } from "./routes/solution";
 
 const app: Application = express();
 
@@ -41,6 +42,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // using routers
 app.use("/api/v1", userRouter);
+app.use("/api/v1", solutionRouter);
 app.use(notFound);
 
 // using error handler

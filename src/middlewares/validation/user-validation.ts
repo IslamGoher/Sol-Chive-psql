@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { ErrorResponse } from "../utils/error-response";
+import { ErrorResponse } from "../../utils/error-response";
 import Joi from "joi";
 
 // @route   GET '/api/v1/user?email'

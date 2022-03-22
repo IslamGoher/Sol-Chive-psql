@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import { getFullUserProfile } from "../controllers/user";
-import { validateUserEmail } from "../middlewares/user-validation";
+import { validateUserEmail } from "../middlewares/validation/user-validation";
 
 export const router: Router = express.Router();
 
