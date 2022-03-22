@@ -35,7 +35,7 @@ export const getAllSolutionsAnonymous = async (
 
     // pagination
     let pageNumber = parseInt(page);
-    if(isNaN(pageNumber))
+    if(isNaN(pageNumber) || pageNumber < 1)
       pageNumber = 1;
 
     const SOLUTION_NUMBER_PER_PAGE = 8;
