@@ -3,7 +3,10 @@ import {
   getAllSolutionsAnonymous,
   getOneSolutionAnonymous,
 } from "../controllers/solution";
-import { validateGetAllSolutionsAnonymous } from "../middlewares/validation/solution-validation";
+import {
+  validateGetAllSolutionsAnonymous,
+  validateGetoneSolutionAnonymous,
+} from "../middlewares/validation/solution-validation";
 
 export const router: Router = express.Router();
 
@@ -19,4 +22,8 @@ router.get(
 // @route   GET '/api/v1/anonymous/solution/:solutionId'
 // @desc    list one solution for Anonymous user
 // @access  public
-router.get("/anonymous/solution/:solutionId", getOneSolutionAnonymous);
+router.get(
+  "/anonymous/solution/:solutionId",
+  validateGetoneSolutionAnonymous,
+  getOneSolutionAnonymous
+);

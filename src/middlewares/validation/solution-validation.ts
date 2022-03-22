@@ -8,11 +8,35 @@ export const validateGetAllSolutionsAnonymous = async (
   res: Response,
   next: NextFunction
 ) => {
-  const joiSchema = Joi.string().email();
-  const result = joiSchema.validate(req.params.email);
+  try {
+    const joiSchema = Joi.string().email();
+    const result = joiSchema.validate(req.params.email);
+  
+    if(result.error)
+      return next(new ErrorResponse(400, "invalid email"));
+  
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
-  if(result.error)
-    return next(new ErrorResponse(400, "invalid email"));
+// @route   GET '/api/v1/anonymous/solution/:solutionId'
+export const validateGetoneSolutionAnonymous = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const joiSchema = Joi.number().min(1);
 
-  next();
+    const result = joiSchema.validate(req.params.solutionId);
+
+    if (result.error)
+      return next(new ErrorResponse(400, "invalid id"));
+    
+    next();
+  } catch (error) {
+    next(error);
+  }
 };
