@@ -41,7 +41,7 @@ export const getAllSolutionsAnonymous = async (
     if(isNaN(pageNumber) || pageNumber < 1)
       pageNumber = 1;
 
-    const SOLUTION_NUMBER_PER_PAGE = 8;
+    const SOLUTION_NUMBER_PER_PAGE = 24;
     const pagiantionQuery = getPaginationQuery(pageNumber, SOLUTION_NUMBER_PER_PAGE);
     
     // list solutions from database
