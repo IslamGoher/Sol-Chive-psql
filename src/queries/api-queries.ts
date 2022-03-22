@@ -12,14 +12,31 @@ export const userProfileQueries = `
 `;
 
 // database querie of api "list all solutions for anonymous user"
-export const solutionsAnonymousQueries = `
-  SELECT
-    s.solution_id, s.created_on,
-    title , link, source, tags
-  FROM
-    users as u
-  LEFT JOIN solutions as s
-  ON s.user_id = u.user_id
-  WHERE
-    u.email = $1
-`;
+export const solutionsAnonymousQueries = {
+  solutions:`
+    SELECT
+      s.solution_id, s.created_on,
+      title , link, source, tags
+    FROM
+      users as u
+    LEFT JOIN solutions as s
+    ON s.user_id = u.user_id
+    WHERE
+      u.email = $1
+  `,
+  solutionCount: `
+    SELECT
+      COUNT(t)
+    FROM
+      (
+        SELECT
+          s.solution_id 
+        FROM
+          users as u
+        LEFT JOIN solutions as s
+        ON s.user_id = u.user_id
+        WHERE
+          u.email = $1
+        
+  `
+};

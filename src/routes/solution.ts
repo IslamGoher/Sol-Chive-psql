@@ -6,4 +6,4 @@ export const router: Router = express.Router();
 // @route   GET '/api/v1/solutions/:email'
 // @desc    list all solutions for Anonymous user
 // @access  public
-router.get("/solutions/:email", getAllSolutionsAnonymous);
+router.get("/api/v1/solutions/:email", getAllSolutionsAnonymous);
