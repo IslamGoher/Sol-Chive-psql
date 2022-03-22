@@ -8,7 +8,7 @@ export const router: Router = express.Router();
 // @desc    list all solutions for Anonymous user
 // @access  public
 router.get(
-  "/solutions/:email",
+  "/anonymous/solutions/:email",
   validateGetAllSolutionsAnonymous,
   getAllSolutionsAnonymous
 );
