@@ -132,7 +132,7 @@
             "name": "email",
             "in": "path",
             "required": true,
-            "description": "email of user, enter it to get user data",
+            "description": "email of user, enter it to get user solutions",
             "schema": {
               "type": "string"
             }
@@ -264,6 +264,108 @@
           },
           "404": {
             "description": "not found, which mean that there's no solutions founded for given user email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/anonymous/solution/{solutionId}": {
+      "get": {
+        "summary": "Get one user solution for Anonymous user",
+        "tags": ["Solution"],
+        "description": "get one user solutions for unauthenticated user.",
+        "parameters": [
+          {
+            "name": "solutionId",
+            "in": "path",
+            "required": true,
+            "description": "the id of solution, enter it to get solution data",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "solution_id": {
+                      "type": "number",
+                      "description": "the id of solution"
+                    },
+                    "created_on": {
+                      "type": "string",
+                      "description": "the date that solution created on (YYYY-MM-DD HH:MM:SS)"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "the title of solution"
+                    },
+                    "link": {
+                      "type": "string",
+                      "description": "the url link of the solution"
+                    },
+                    "source": {
+                      "type": "string",
+                      "description": "the source of the solution"
+                    },
+                    "tags": {
+                      "type":"array",
+                      "items": {
+                        "type":"string"
+                      }
+                    },
+                    "my_solution": {
+                      "type": "string",
+                      "description": "the problem solution"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, which mean that id is missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found, which mean that there's no solution found with given id",
             "content": {
               "application/json": {
                 "schema": {
