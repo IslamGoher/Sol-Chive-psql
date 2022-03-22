@@ -1,12 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { solutionsAnonymousQueries } from "../queries/api-queries";
+import {
+  getSolutionAnonymousQuery,
+  solutionsAnonymousQueries
+} from "../queries/api-queries";
 import { pool } from "../database/pool";
 import { getSortingQuery } from "../utils/sort-database";
 import { getFilteringQueries } from "../utils/filter-database";
 import { ErrorResponse } from "../utils/error-response";
 import { getPaginationQuery } from "../utils/pagination-database";
 
-// @route   GET '/api/v1/solutions/:email'
+// @route   GET '/api/v1/anonymous/solutions/:email'
 // @desc    list all solutions for Anonymous user
 // @access  public
 export const getAllSolutionsAnonymous = async (
@@ -68,12 +71,37 @@ export const getAllSolutionsAnonymous = async (
     const solutionCount = solutionCountData.rows[0].count;
     const totalPages = Math.ceil(solutionCount / SOLUTION_NUMBER_PER_PAGE);
 
-    res.json({
+    res.status(200).json({
       pageNumber,
       totalPages,
       count: solutionsData.rowCount,
       solutions: solutionsData.rows
     });
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   GET '/api/v1/anonymous/solution/:solutionId'
+// @desc    list one solution for Anonymous user
+// @access  public
+export const getOneSolutionAnonymous = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const solutionId = req.params.solutionId;
+
+    const solutionData = await pool.query(getSolutionAnonymousQuery, [
+      solutionId
+    ]);
+
+    if (solutionData.rowCount === 0)
+      return next(new ErrorResponse(404, "there's no solution found with given id"));
+
+    res.status(200).json(solutionData.rows[0]);
 
   } catch (error) {
     next(error);

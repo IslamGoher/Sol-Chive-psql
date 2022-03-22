@@ -40,3 +40,14 @@ export const solutionsAnonymousQueries = {
         
   `
 };
+
+export const getSolutionAnonymousQuery = `
+  SELECT
+    solution_id, created_on,
+    title, link, source,
+    tags, my_solution
+  FROM
+    solutions
+  WHERE
+    solution_id = $1;
+`;
