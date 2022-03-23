@@ -10,7 +10,9 @@ export async function createTables() {
         picture VARCHAR (1000),
         email VARCHAR (255) UNIQUE NOT NULL,
         about VARCHAR (5000),
-        contacts VARCHAR (1000)
+        contacts VARCHAR (1000),
+        login_website VARCHAR,
+        refresh_token VARCHAR
       );
   
       CREATE TABLE IF NOT EXISTS solutions(

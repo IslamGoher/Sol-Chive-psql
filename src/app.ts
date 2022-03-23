@@ -10,6 +10,7 @@ import { errorHandler } from "./middlewares/error-handler";
 import { notFound } from "./controllers/not-found";
 import { router as userRouter } from "./routes/user";
 import { router as solutionRouter } from "./routes/solution";
+import { router as authRouter } from "./routes/auth";
 
 const app: Application = express();
 
@@ -43,6 +44,7 @@ app.use(express.urlencoded({ extended: false }));
 // using routers
 app.use("/api/v1", userRouter);
 app.use("/api/v1", solutionRouter);
+app.use("/api/v1/auth", authRouter);
 app.use(notFound);
 
 // using error handler

@@ -386,6 +386,31 @@
           }
         }
       }
+    },
+    "/api/v1/auth/google": {
+      "get": {
+        "summary": "Get google Oauth url",
+        "tags": ["Authentication"],
+        "description": "get url of google Oauth",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "redirectUrl": {
+                      "type": "string",
+                      "description": "google Oauth rul"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
