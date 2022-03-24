@@ -100,3 +100,20 @@ export const getGoogleCallback = async (
     next(error);
   }
 };
+
+// @route   DELETE '/api/v1/auth/logout'
+// @desc    logout
+// @access  private (only logged in user can logout)
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.clearCookie("token");
+    res.status(204).end();
+
+  } catch (error) {
+    next(error);
+  }
+};
