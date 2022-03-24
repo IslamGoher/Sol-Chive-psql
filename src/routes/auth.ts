@@ -1,5 +1,8 @@
 import express, { Router } from "express";
-import { getGoogleAuth } from "../controllers/auth";
+import {
+  getGoogleAuth,
+  getGoogleCallback
+} from "../controllers/auth";
 
 export const router: Router = express.Router();
 
@@ -7,3 +10,8 @@ export const router: Router = express.Router();
 // @desc    generate google oauth url
 // @access  public
 router.get("/google", getGoogleAuth);
+
+// @route   GET '/api/v1/auth/google/callback'
+// @desc    google oauth redirection url
+// @access  public
+router.get("/google/callback", getGoogleCallback);

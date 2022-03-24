@@ -51,3 +51,32 @@ export const getSolutionAnonymousQuery = `
   WHERE
     solution_id = $1;
 `;
+
+export const findUser = `
+  SELECT
+    user_id
+  FROM
+    users
+  WHERE
+    email = $1;
+`;
+
+export const updateRefreshToken = `
+  UPDATE
+    users
+  SET
+    login_website = $1,
+    refresh_token = $2
+  WHERE
+    user_id = $3;
+`;
+
+export const addUser = `
+  INSERT INTO
+    users (
+      name, picture, email,
+      login_website, refresh_token
+    )
+    VALUES ($1, $2, $3, $4, $5)
+  RETURNING user_id;
+`;
