@@ -2,11 +2,13 @@ import express, { Router } from "express";
 import {
   getAllSolutionsAnonymous,
   getOneSolutionAnonymous,
+  getAllSolutionsAuth,
 } from "../controllers/solution";
 import {
   validateGetAllSolutionsAnonymous,
   validateGetoneSolutionAnonymous,
 } from "../middlewares/validation/solution-validation";
+import { authorization } from "../middlewares/authorization";
 
 export const router: Router = express.Router();
 
@@ -27,3 +29,8 @@ router.get(
   validateGetoneSolutionAnonymous,
   getOneSolutionAnonymous
 );
+
+// @route   GET '/api/v1/user/solutions'
+// @desc    list all solution for authenticated user
+// @access  private
+router.get("/user/solutions", authorization, getAllSolutionsAuth);

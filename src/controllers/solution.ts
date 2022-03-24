@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import {
   getSolutionAnonymousQuery,
-  solutionsAnonymousQueries
+  solutionsAnonymousQueries,
+  getAllSolutionsAuthQuery
 } from "../queries/api-queries";
 import { pool } from "../database/pool";
 import { getSortingQuery } from "../utils/sort-database";
@@ -102,6 +103,30 @@ export const getOneSolutionAnonymous = async (
       return next(new ErrorResponse(404, "there's no solution found with given id"));
 
     res.status(200).json(solutionData.rows[0]);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   GET '/api/v1/user/solutions'
+// @desc    list all solution for authenticated user
+// @access  private
+export const getAllSolutionsAuth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+
+    const userId = req.user.id;
+
+    const userData = await pool.query(getAllSolutionsAuthQuery, [userId]);
+
+    if (userData.rowCount === 0)
+      return next(new ErrorResponse(404, "there's no solution found"));
+
+    res.status(200).json(userData.rows);
 
   } catch (error) {
     next(error);
