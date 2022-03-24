@@ -22,7 +22,7 @@ export const validateGetAllSolutionsAnonymous = async (
 };
 
 // @route   GET '/api/v1/anonymous/solution/:solutionId'
-export const validateGetoneSolutionAnonymous = async (
+export const validateSolutionId = async (
   req: Request,
   res: Response,
   next: NextFunction

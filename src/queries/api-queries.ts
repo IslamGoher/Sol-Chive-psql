@@ -117,3 +117,15 @@ export const getAllSolutionsAuthQueries = {
         user_id = $1
   `
 };
+
+export const getOneSolutionAuthQuery = `
+  SELECT
+    solution_id, created_on,
+    title, link, source, tags,
+    my_solution, perfect_solution
+  FROM
+    solutions
+  WHERE
+    solution_id = $1 AND
+    user_id = $2;
+`;
