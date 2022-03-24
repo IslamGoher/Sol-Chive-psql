@@ -13,7 +13,7 @@ export const userProfileQueries = `
 
 // database querie of api "list all solutions for anonymous user"
 export const solutionsAnonymousQueries = {
-  solutions:`
+  solutions: `
     SELECT
       s.solution_id, s.created_on,
       title , link, source, tags
@@ -38,7 +38,7 @@ export const solutionsAnonymousQueries = {
         WHERE
           u.email = $1
         
-  `
+  `,
 };
 
 export const getSolutionAnonymousQuery = `
@@ -80,3 +80,40 @@ export const addUser = `
     VALUES ($1, $2, $3, $4, $5)
   RETURNING user_id;
 `;
+
+export const getAllSolutionsAuthQueries = {
+  solutions: `
+    SELECT
+      solution_id, created_on, title,
+      link, source, tags,
+      CASE
+        WHEN EXISTS (
+          SELECT
+            *
+          FROM
+            solutions AS u
+          WHERE
+            perfect_solution IS NOT NULL AND
+            u.solution_id = s.solution_id
+        )
+        THEN true
+        ELSE false
+      END AS perfect_solution
+    FROM
+      solutions AS s
+    WHERE
+      user_id = $1
+  `,
+  solutionsCount: `
+  SELECT
+    COUNT(t)
+  FROM
+    (
+      SELECT
+        solution_id
+      FROM
+        solutions as s
+      WHERE
+        user_id = $1
+  `
+};

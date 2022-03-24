@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import {
   getSolutionAnonymousQuery,
-  solutionsAnonymousQueries
+  solutionsAnonymousQueries,
+  getAllSolutionsAuthQueries
 } from "../queries/api-queries";
 import { pool } from "../database/pool";
 import { getSortingQuery } from "../utils/sort-database";
@@ -58,7 +59,7 @@ export const getAllSolutionsAnonymous = async (
     if(solutionsData.rowCount === 0)
       return next(new ErrorResponse(404, "solutions not found"));
 
-    // find solution count
+    // find solutions count
     const solutionCountData = await pool.query(
       `${solutionsAnonymousQueries.solutionCount}
       ${filterBySource}
@@ -102,6 +103,79 @@ export const getOneSolutionAnonymous = async (
       return next(new ErrorResponse(404, "there's no solution found with given id"));
 
     res.status(200).json(solutionData.rows[0]);
+
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   GET '/api/v1/user/solutions'
+// @desc    list all solution for authenticated user
+// @access  private
+export const getAllSolutionsAuth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+
+    const userId = req.user.id;
+    const sortbydate = `${req.query.sortbydate}`;
+    const source = `${req.query.source}`;
+    const tag = `${req.query.tag}`;
+    const perfectSolution = `${req.query.perfectsolution}`;
+    const page = `${req.query.page}`;
+
+    // sort solutions by date
+    const sortBy = getSortingQuery(sortbydate);
+
+    // filter by 'source', 'tag', 'perfect_solution'
+    const {
+      filterBySource,
+      filterByTag,
+      filterByPerfectSolution 
+    } = getFilteringQueries(source, tag, perfectSolution);
+
+    // pagination
+    let pageNumber = parseInt(page);
+    if(isNaN(pageNumber) || pageNumber < 1)
+      pageNumber = 1;
+
+    const SOLUTION_NUMBER_PER_PAGE = 24;
+    const pagiantionQuery = getPaginationQuery(pageNumber, SOLUTION_NUMBER_PER_PAGE);
+
+    const solutionsData = await pool.query(
+      `${getAllSolutionsAuthQueries.solutions}
+      ${filterBySource}
+      ${filterByTag}
+      ${filterByPerfectSolution!}
+      ${sortBy}
+      ${pagiantionQuery};`,
+      [userId]
+    );
+
+    if (solutionsData.rowCount === 0)
+      return next(new ErrorResponse(404, "there's no solution found"));
+
+    // find solutions count
+    const solutionCountData = await pool.query(
+      `${getAllSolutionsAuthQueries.solutionsCount}
+      ${filterBySource}
+      ${filterByTag}
+      ${filterByPerfectSolution!}
+      GROUP BY solution_id) AS t;
+      `,
+      [userId]
+    );
+    const solutionCount = solutionCountData.rows[0].count;
+    const totalPages = Math.ceil(solutionCount / SOLUTION_NUMBER_PER_PAGE);
+
+    res.status(200).json({
+      pageNumber,
+      totalPages,
+      count: solutionsData.rowCount,
+      solutions: solutionsData.rows
+    });
 
   } catch (error) {
     next(error);
