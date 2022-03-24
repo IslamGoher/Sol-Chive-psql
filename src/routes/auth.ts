@@ -1,8 +1,10 @@
 import express, { Router } from "express";
 import {
   getGoogleAuth,
-  getGoogleCallback
+  getGoogleCallback,
+  logout
 } from "../controllers/auth";
+import { authorization } from "../middlewares/authorization";
 
 export const router: Router = express.Router();
 
@@ -15,3 +17,8 @@ router.get("/google", getGoogleAuth);
 // @desc    google oauth redirection url
 // @access  public
 router.get("/google/callback", getGoogleCallback);
+
+// @route   DELETE '/api/v1/auth/logout'
+// @desc    logout
+// @access  private (only logged in user can logout)
+router.delete("/logout", authorization, logout);
