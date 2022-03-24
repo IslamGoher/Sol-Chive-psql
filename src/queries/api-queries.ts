@@ -81,25 +81,39 @@ export const addUser = `
   RETURNING user_id;
 `;
 
-export const getAllSolutionsAuthQuery = `
+export const getAllSolutionsAuthQueries = {
+  solutions: `
+    SELECT
+      solution_id, created_on, title,
+      link, source, tags,
+      CASE
+        WHEN EXISTS (
+          SELECT
+            *
+          FROM
+            solutions AS u
+          WHERE
+            perfect_solution IS NOT NULL AND
+            u.solution_id = s.solution_id
+        )
+        THEN true
+        ELSE false
+      END AS perfect_solution
+    FROM
+      solutions AS s
+    WHERE
+      user_id = $1
+  `,
+  solutionsCount: `
   SELECT
-    solution_id, created_on, title,
-    link, source, tags,
-    CASE
-      WHEN EXISTS (
-        SELECT
-          *
-        FROM
-          solutions AS s
-        WHERE
-          perfect_solution IS NOT NULL AND
-          s.solution_id = u.solution_id
-      )
-      THEN true
-      ELSE false
-    END AS perfect_solution
+    COUNT(t)
   FROM
-    solutions AS u
-  WHERE
-    user_id = $1;
-`;
+    (
+      SELECT
+        solution_id
+      FROM
+        solutions as s
+      WHERE
+        user_id = $1
+  `
+};
