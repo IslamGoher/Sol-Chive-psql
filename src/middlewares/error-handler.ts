@@ -16,6 +16,15 @@ export const errorHandler = (
   
   // console.log(err);
 
+  if (
+    err.message === "jwt malformed" ||
+    err.message === "invalid signature" ||
+    err.message === "invalid token"
+  ) {
+    err.message = "forbeddin.";
+    err.code = 403;
+  }
+
   res.status(err.code || 500).json({
     code: err.code || 500,
     message: err.message || "Server error"
