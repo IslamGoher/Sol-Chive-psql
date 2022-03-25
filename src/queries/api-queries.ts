@@ -138,3 +138,12 @@ export const deleteSolutionQuery = `
     user_id = $2
   RETURNING solution_id;
 `;
+
+export const basicInfoQuery = `
+  SELECT
+    name, picture
+  FROM
+    users
+  WHERE
+    user_id = $1;
+`;

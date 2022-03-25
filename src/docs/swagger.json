@@ -599,6 +599,26 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "user isn't authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "not found, which mean that there's no solutions founded for given user email",
             "content": {
@@ -705,6 +725,26 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "user isn't authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "not found, which mean that there's no solution found with given id",
             "content": {
@@ -783,6 +823,26 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "user isn't authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "404": {
             "description": "not found, which mean that there's no solution found with given id",
             "content": {
@@ -797,6 +857,55 @@
                     "message": {
                       "type": "string",
                       "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/basic-info": {
+      "get": {
+        "summary": "Get user basic info",
+        "tags": ["User"],
+        "description": "get name and picture of user",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "user name"
+                    },
+                    "picture": {
+                      "type": "string",
+                      "description": "link to user picture"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "user isn't authenticated"
                     }
                   }
                 }

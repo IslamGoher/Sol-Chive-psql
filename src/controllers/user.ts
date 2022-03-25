@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { pool } from "../database/pool";
 import { ErrorResponse } from "../utils/error-response";
-import { userProfileQueries } from "../queries/api-queries";
+import { basicInfoQuery, userProfileQueries } from "../queries/api-queries";
 
 // @route   GET '/api/v1/user?email'
 // @desc    get full user profile
@@ -23,6 +23,25 @@ export const getFullUserProfile = async (
     }
 
     // send response
+    res.status(200).json(userData.rows[0]);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   GET '/api/v1/user/basic-info'
+// @desc    get user name and picture
+// @access  private
+export const getBasicInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user.id;
+
+    const userData = await pool.query(basicInfoQuery, [userId]);
+
     res.status(200).json(userData.rows[0]);
   } catch (error) {
     next(error);
