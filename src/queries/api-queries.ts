@@ -147,3 +147,21 @@ export const basicInfoQuery = `
   WHERE
     user_id = $1;
 `;
+
+export const getRefreshToken = `
+  SELECT
+    refresh_token, login_website
+  FROM
+    users
+  WHERE
+    user_id = $1;
+`;
+
+export const updateAvatarQuery = `
+  UPDATE
+    users
+  SET
+    picture = $1
+  WHERE
+    user_id = $2;
+`;

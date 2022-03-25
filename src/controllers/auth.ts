@@ -59,7 +59,7 @@ export const getGoogleCallback = async (
 
     const { tokens } = await oauth2Client.getToken(callbackCode);
 
-    const googleOauthUrl = `${process.env.GOOGLE_ACCESS_TOKEN_URL}${tokens.access_token}`;
+    const googleOauthUrl = `${process.env.GOOGLE_GET_DATA_URL}${tokens.access_token}`;
 
     const { data } = await axios.get(googleOauthUrl);
 
