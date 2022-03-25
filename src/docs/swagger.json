@@ -726,6 +726,84 @@
             }
           }
         }
+      },
+      "delete": {
+        "summary": "Delete one user solution for Authenticated user",
+        "tags": ["Solution"],
+        "description": "delete one user solutions for authenticated user.",
+        "parameters": [
+          {
+            "name": "solutionId",
+            "in": "path",
+            "required": true,
+            "description": "the id of solution, enter it to get solution data",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code of response"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message informs user that solution deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, which mean that id is missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not found, which mean that there's no solution found with given id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -4,6 +4,7 @@ import {
   getOneSolutionAnonymous,
   getAllSolutionsAuth,
   getOneSolutionAuth,
+  deleteSolution,
 } from "../controllers/solution";
 import {
   validateGetAllSolutionsAnonymous,
@@ -44,4 +45,14 @@ router.get(
   authorization,
   validateSolutionId,
   getOneSolutionAuth
+);
+
+// @route   DELETE '/api/v1/user/solutions/:solutionId'
+// @desc    delete one solution for authenticated user
+// @access  private
+router.delete(
+  "/user/solutions/:solutionId",
+  authorization,
+  validateSolutionId,
+  deleteSolution
 );

@@ -129,3 +129,12 @@ export const getOneSolutionAuthQuery = `
     solution_id = $1 AND
     user_id = $2;
 `;
+
+export const deleteSolutionQuery = `
+  DELETE FROM
+    solutions
+  WHERE
+    solution_id = $1 AND
+    user_id = $2
+  RETURNING solution_id;
+`;
