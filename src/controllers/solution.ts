@@ -3,7 +3,8 @@ import {
   getSolutionAnonymousQuery,
   solutionsAnonymousQueries,
   getAllSolutionsAuthQueries,
-  getOneSolutionAuthQuery
+  getOneSolutionAuthQuery,
+  deleteSolutionQuery
 } from "../queries/api-queries";
 import { pool } from "../database/pool";
 import { getSortingQuery } from "../utils/sort-database";
@@ -206,6 +207,39 @@ export const getOneSolutionAuth = async (
 
     res.status(200).json(solutionData.rows[0]);
 
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   DELETE '/api/v1/user/solutions/:solutionId'
+// @desc    delete one solution for authenticated user
+// @access  private
+export const deleteSolution = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+
+    const solutionId = req.params.solutionId;
+    const userId = req.user.id;
+
+    const data = await pool.query(
+      deleteSolutionQuery,
+      [solutionId, userId]
+    );
+    
+    const errorMassage = "there's no solution found with gevin id";
+
+    if (data.rowCount === 0)
+      return next(new ErrorResponse(404, errorMassage));
+    
+    res.status(200).json({
+      code: 200,
+      message: `solution with id: ${solutionId} deleted successfully.`
+    });
+    
   } catch (error) {
     next(error);
   }
