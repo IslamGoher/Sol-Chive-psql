@@ -3,6 +3,7 @@ import {
   getAllSolutionsAnonymous,
   getOneSolutionAnonymous,
   getAllSolutionsAuth,
+  getOneSolutionAuth,
 } from "../controllers/solution";
 import {
   validateGetAllSolutionsAnonymous,
@@ -34,3 +35,8 @@ router.get(
 // @desc    list all solution for authenticated user
 // @access  private
 router.get("/user/solutions", authorization, getAllSolutionsAuth);
+
+// @route   GET '/api/v1/user/solutions/:solutionId'
+// @desc    list one solution for authenticated user
+// @access  private
+router.get("/user/solutions/:solutionId", authorization, getOneSolutionAuth);
