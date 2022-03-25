@@ -7,7 +7,7 @@ import {
 } from "../controllers/solution";
 import {
   validateGetAllSolutionsAnonymous,
-  validateGetoneSolutionAnonymous,
+  validateSolutionId,
 } from "../middlewares/validation/solution-validation";
 import { authorization } from "../middlewares/authorization";
 
@@ -27,7 +27,7 @@ router.get(
 // @access  public
 router.get(
   "/anonymous/solution/:solutionId",
-  validateGetoneSolutionAnonymous,
+  validateSolutionId,
   getOneSolutionAnonymous
 );
 
@@ -39,4 +39,9 @@ router.get("/user/solutions", authorization, getAllSolutionsAuth);
 // @route   GET '/api/v1/user/solutions/:solutionId'
 // @desc    list one solution for authenticated user
 // @access  private
-router.get("/user/solutions/:solutionId", authorization, getOneSolutionAuth);
+router.get(
+  "/user/solutions/:solutionId",
+  authorization,
+  validateSolutionId,
+  getOneSolutionAuth
+);
