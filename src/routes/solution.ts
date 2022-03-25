@@ -53,5 +53,6 @@ router.get(
 router.delete(
   "/user/solutions/:solutionId",
   authorization,
+  validateSolutionId,
   deleteSolution
 );
