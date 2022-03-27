@@ -5,10 +5,12 @@ import {
   getAllSolutionsAuth,
   getOneSolutionAuth,
   deleteSolution,
+  addSolution,
 } from "../controllers/solution";
 import {
   validateGetAllSolutionsAnonymous,
   validateSolutionId,
+  validateSolution,
 } from "../middlewares/validation/solution-validation";
 import { authorization } from "../middlewares/authorization";
 
@@ -55,4 +57,14 @@ router.delete(
   authorization,
   validateSolutionId,
   deleteSolution
+);
+
+// @route   POST '/api/v1/user/solutions'
+// @desc    create new solution
+// @access  private
+router.post(
+  "/user/solutions",
+  authorization,
+  validateSolution,
+  addSolution
 );

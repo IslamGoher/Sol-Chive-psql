@@ -229,9 +229,9 @@
                             "description": "the source of the solution"
                           },
                           "tags": {
-                            "type":"array",
+                            "type": "array",
                             "items": {
-                              "type":"string"
+                              "type": "string"
                             }
                           }
                         }
@@ -330,9 +330,9 @@
                       "description": "the source of the solution"
                     },
                     "tags": {
-                      "type":"array",
+                      "type": "array",
                       "items": {
-                        "type":"string"
+                        "type": "string"
                       }
                     },
                     "my_solution": {
@@ -562,9 +562,9 @@
                             "description": "the source of the solution"
                           },
                           "tags": {
-                            "type":"array",
+                            "type": "array",
                             "items": {
-                              "type":"string"
+                              "type": "string"
                             }
                           },
                           "perfect_solution": {
@@ -640,6 +640,192 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Add new solution",
+        "tags": ["Solution"],
+        "description": "Create new solution",
+        "requestBody": {
+          "description": "solution data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "required": true,
+                    "description": "the title of solution",
+                    "max-length": 255
+                  },
+                  "link": {
+                    "type": "string",
+                    "required": true,
+                    "description": "the url link of the solution"
+                  },
+                  "mySolution": {
+                    "type": "string",
+                    "required": true,
+                    "description": "the problem solution",
+                    "max-length": 65535
+                  },
+                  "perfectSolution": {
+                    "type": "string",
+                    "required": false,
+                    "description": "the perfect solution of problem",
+                    "max-length": 65535
+                  },
+                  "tags": {
+                    "type": "array",
+                    "required": false,
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "array",
+                        "string",
+                        "hash table",
+                        "dynamic programming",
+                        "math",
+                        "depth-first search",
+                        "sorting",
+                        "greedy",
+                        "database",
+                        "breadth-first search",
+                        "tree",
+                        "binary search",
+                        "matrix",
+                        "binary tree",
+                        "two pointers",
+                        "bit manipulation",
+                        "stack",
+                        "design",
+                        "heap",
+                        "graph",
+                        "backtracking",
+                        "simulation",
+                        "prefix sum",
+                        "counting",
+                        "sliding window",
+                        "linked list",
+                        "union find",
+                        "recursion",
+                        "ordered set",
+                        "monotonic stack",
+                        "binary search tree",
+                        "trie",
+                        "divide and conquer",
+                        "bitmask",
+                        "queue",
+                        "enumeration",
+                        "geometry",
+                        "memoization",
+                        "game theory",
+                        "segment tree",
+                        "topological sort",
+                        "hash function",
+                        "interactive",
+                        "binary indexed tree",
+                        "data stream",
+                        "string matching",
+                        "rolling hash",
+                        "shortest path",
+                        "randomized",
+                        "number theory",
+                        "combinatorics",
+                        "monotonic queue",
+                        "iterator",
+                        "merge sort",
+                        "concurrency",
+                        "brainteaser",
+                        "probability and statistics",
+                        "doubly-linked list",
+                        "quickselect",
+                        "bucket sort",
+                        "minimum spanning tree",
+                        "counting sort",
+                        "suffix array",
+                        "shell",
+                        "line sweep",
+                        "reservoir sampling",
+                        "eulerian circuit",
+                        "strongly connected component",
+                        "radix sort",
+                        "rejection sampling"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "content created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message to inform user that solution created successfully"
+                    },
+                    "solutionId": {
+                      "type": "number",
+                      "description": "the id of new solution"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad request, which mean that id is missing or invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "user isn't authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/user/solutions/{solutionId}": {
@@ -687,9 +873,9 @@
                       "description": "the source of the solution"
                     },
                     "tags": {
-                      "type":"array",
+                      "type": "array",
                       "items": {
-                        "type":"string"
+                        "type": "string"
                       }
                     },
                     "my_solution": {
