@@ -10,6 +10,7 @@ import {
 import {
   validateGetAllSolutionsAnonymous,
   validateSolutionId,
+  validateSolution,
 } from "../middlewares/validation/solution-validation";
 import { authorization } from "../middlewares/authorization";
 
@@ -61,4 +62,9 @@ router.delete(
 // @route   POST '/api/v1/user/solutions'
 // @desc    create new solution
 // @access  private
-router.post("/user/solutions", authorization, addSolution);
+router.post(
+  "/user/solutions",
+  authorization,
+  validateSolution,
+  addSolution
+);
