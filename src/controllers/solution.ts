@@ -5,7 +5,8 @@ import {
   getAllSolutionsAuthQueries,
   getOneSolutionAuthQuery,
   deleteSolutionQuery,
-  addSolutionQuery
+  addSolutionQuery,
+  updateSolutionQuery
 } from "../queries/api-queries";
 import { pool } from "../database/pool";
 import { getSortingQuery } from "../utils/sort-database";
@@ -281,6 +282,53 @@ export const addSolution = async (
     res.status(201).json({
       code: 201,
       message: "solution created successfully",
+      solutionId: solutionData.rows[0].solution_id
+    });
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   PUT '/api/v1/user/solutions/:solutionId'
+// @desc    update solution for authenticated user
+// @access  private
+export const updateSolution = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+
+    const solutionId = req.params.solutionId;
+    const userId = req.user.id;
+    const title = req.body.title;
+    const link = req.body.link;
+    const mySolution = req.body.mySolution;
+    const perfectSolution = req.body.perfectSolution || "";
+    
+    const tags: string[] = req.body.tags || [];
+    const tagsInQuery = `{ ${tags.join(", ")} }`;
+
+    const source = extractDomain(link);
+
+    const solutionData = await pool.query(updateSolutionQuery, [
+      title,
+      link,
+      source,
+      mySolution,
+      perfectSolution,
+      tagsInQuery,
+      userId,
+      solutionId
+    ]);
+
+    if (solutionData.rowCount === 0)
+      return next(new ErrorResponse(404, "there's no solution found with given id"));
+
+    res.status(200).json({
+      code: 200,
+      message: "solution updated successfully",
       solutionId: solutionData.rows[0].solution_id
     });
     

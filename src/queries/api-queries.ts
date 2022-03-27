@@ -182,3 +182,20 @@ export const addSolutionQuery = `
     RETURNING
       solution_id;
 `;
+
+export const updateSolutionQuery = `
+  UPDATE
+    solutions
+  SET
+    title = $1,
+    link = $2, 
+    source = $3, 
+    my_solution = $4,
+    perfect_solution = $5,
+    tags = $6
+  WHERE
+    user_id = $7 AND
+    solution_id = $8
+  RETURNING
+    solution_id;
+`;

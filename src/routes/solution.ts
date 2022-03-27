@@ -6,6 +6,7 @@ import {
   getOneSolutionAuth,
   deleteSolution,
   addSolution,
+  updateSolution,
 } from "../controllers/solution";
 import {
   validateGetAllSolutionsAnonymous,
@@ -67,4 +68,14 @@ router.post(
   authorization,
   validateSolution,
   addSolution
+);
+
+// @route   PUT '/api/v1/user/solutions/:solutionId'
+// @desc    update solution for authenticated user
+// @access  private
+router.put(
+  "/user/solutions/:solutionId",
+  authorization,
+  validateSolution,
+  updateSolution
 );
