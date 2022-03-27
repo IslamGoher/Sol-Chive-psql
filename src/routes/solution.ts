@@ -5,6 +5,7 @@ import {
   getAllSolutionsAuth,
   getOneSolutionAuth,
   deleteSolution,
+  addSolution,
 } from "../controllers/solution";
 import {
   validateGetAllSolutionsAnonymous,
@@ -56,3 +57,8 @@ router.delete(
   validateSolutionId,
   deleteSolution
 );
+
+// @route   POST '/api/v1/user/solutions'
+// @desc    create new solution
+// @access  private
+router.post("/user/solutions", authorization, addSolution);

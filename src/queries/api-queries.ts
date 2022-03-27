@@ -165,3 +165,20 @@ export const updateAvatarQuery = `
   WHERE
     user_id = $2;
 `;
+
+export const addSolutionQuery = `
+  INSERT INTO
+    solutions(
+      created_on, title,
+      link, source, my_solution,
+      perfect_solution, tags, user_id
+    )
+
+    VALUES(
+      NOW(), $1,
+      $2, $3, $4,
+      $5, $6, $7
+    )
+    RETURNING
+      solution_id;
+`;

@@ -4,13 +4,15 @@ import {
   solutionsAnonymousQueries,
   getAllSolutionsAuthQueries,
   getOneSolutionAuthQuery,
-  deleteSolutionQuery
+  deleteSolutionQuery,
+  addSolutionQuery
 } from "../queries/api-queries";
 import { pool } from "../database/pool";
 import { getSortingQuery } from "../utils/sort-database";
 import { getFilteringQueries } from "../utils/filter-database";
 import { ErrorResponse } from "../utils/error-response";
 import { getPaginationQuery } from "../utils/pagination-database";
+import { extractDomain } from "../utils/extract-source";
 
 // @route   GET '/api/v1/anonymous/solutions/:email'
 // @desc    list all solutions for Anonymous user
@@ -238,6 +240,48 @@ export const deleteSolution = async (
     res.status(200).json({
       code: 200,
       message: `solution with id: ${solutionId} deleted successfully.`
+    });
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   POST '/api/v1/user/solutions'
+// @desc    create new solution
+// @access  private
+export const addSolution = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+
+    const userId = req.user.id;
+    const title = req.body.title;
+    const link = req.body.link;
+    const mySolution = req.body.mySolution;
+    const perfectSolution = req.body.perfectSolution || "";
+    
+    const tags: string[] = req.body.tags || [];
+    const tagsInQuery = `{ ${tags.join(", ")} }`;
+
+    const source = extractDomain(link);
+
+    const solutionData = await pool.query(addSolutionQuery, [
+      title,
+      link,
+      source,
+      mySolution,
+      perfectSolution,
+      tagsInQuery,
+      userId
+    ]);
+
+    res.status(201).json({
+      code: 201,
+      message: "solution created successfully",
+      solutionId: solutionData.rows[0].solution_id
     });
     
   } catch (error) {
