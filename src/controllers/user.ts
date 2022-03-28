@@ -7,6 +7,7 @@ import {
   updateAvatarQuery,
   userProfileQueries,
   userSettingsQuery,
+  updateSettingsQuery,
 } from "../queries/api-queries";
 import { getAccessToken } from "../utils/get-access-token";
 import { getAvatarUrl } from "../utils/get-avatar-url";
@@ -102,6 +103,38 @@ export const getUserSettings = async (
     const userData = await pool.query(userSettingsQuery, [userId]);
 
     res.status(200).json(userData.rows[0]);
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   PUT '/api/v1/user/settings'
+// @desc    update user settings data
+// @access  private
+export const putUserSettings = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+
+    const userId = req.user.id;
+    const name = req.body.name;
+    const about = req.body.about || "";
+    const contacts = req.body.contacts || "";
+
+    await pool.query(updateSettingsQuery, [
+      name,
+      about,
+      contacts,
+      userId
+    ]);
+
+    res.status(200).json({
+      code: 200,
+      message: "user data updated successfully"
+    });
     
   } catch (error) {
     next(error);
