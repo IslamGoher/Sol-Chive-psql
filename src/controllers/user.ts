@@ -5,7 +5,8 @@ import {
   basicInfoQuery,
   getRefreshToken,
   updateAvatarQuery,
-  userProfileQueries
+  userProfileQueries,
+  userSettingsQuery,
 } from "../queries/api-queries";
 import { getAccessToken } from "../utils/get-access-token";
 import { getAvatarUrl } from "../utils/get-avatar-url";
@@ -81,6 +82,26 @@ export const updateAvatar = async (
     res.status(200).json({
       picture: newAvatar
     });
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   GET '/api/v1/user/settings'
+// @desc    get user settings data
+// @access  private
+export const getUserSettings = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user.id;
+
+    const userData = await pool.query(userSettingsQuery, [userId]);
+
+    res.status(200).json(userData.rows[0]);
     
   } catch (error) {
     next(error);
