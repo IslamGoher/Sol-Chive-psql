@@ -199,3 +199,12 @@ export const updateSolutionQuery = `
   RETURNING
     solution_id;
 `;
+
+export const userSettingsQuery = `
+  SELECT
+    name, about, contacts
+  FROM
+    users
+  WHERE
+    user_id = $1;
+`;

@@ -3,6 +3,7 @@ import {
   getBasicInfo,
   getFullUserProfile,
   updateAvatar,
+  getUserSettings,
 } from "../controllers/user";
 import { validateUserEmail } from "../middlewares/validation/user-validation";
 import { authorization } from "../middlewares/authorization";
@@ -23,3 +24,8 @@ router.get("/user/basic-info", authorization, getBasicInfo);
 // @desc    update user avatar
 // @access  private
 router.patch("/user/update-avatar", authorization, updateAvatar);
+
+// @route   GET '/api/v1/user/settings'
+// @desc    get user settings data
+// @access  private
+router.get("/user/settings", authorization, getUserSettings);
