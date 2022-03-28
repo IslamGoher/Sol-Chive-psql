@@ -4,6 +4,7 @@ import {
   getFullUserProfile,
   updateAvatar,
   getUserSettings,
+  putUserSettings,
 } from "../controllers/user";
 import { validateUserEmail } from "../middlewares/validation/user-validation";
 import { authorization } from "../middlewares/authorization";
@@ -29,3 +30,8 @@ router.patch("/user/update-avatar", authorization, updateAvatar);
 // @desc    get user settings data
 // @access  private
 router.get("/user/settings", authorization, getUserSettings);
+
+// @route   PUT '/api/v1/user/settings'
+// @desc    update user settings data
+// @access  private
+router.put("/user/settings", authorization, putUserSettings);

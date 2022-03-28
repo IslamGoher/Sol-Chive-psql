@@ -208,3 +208,14 @@ export const userSettingsQuery = `
   WHERE
     user_id = $1;
 `;
+
+export const updateSettingsQuery = `
+  UPDATE
+    users
+  SET
+    name = $1,
+    about = $2,
+    contacts = $3
+  WHERE
+    user_id = $4;
+`;
