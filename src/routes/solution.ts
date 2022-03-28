@@ -73,4 +73,9 @@ router.post(
 // @route   PUT '/api/v1/user/solutions/:solutionId'
 // @desc    update solution for authenticated user
 // @access  private
-router.put("/user/solutions/:solutionId", authorization, updateSolution);
+router.put(
+  "/user/solutions/:solutionId",
+  authorization,
+  validateSolution,
+  updateSolution
+);
