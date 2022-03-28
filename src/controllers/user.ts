@@ -124,7 +124,7 @@ export const putUserSettings = async (
     const about = req.body.about || "";
     const contacts = req.body.contacts || "";
 
-    const userData = await pool.query(updateSettingsQuery, [
+    await pool.query(updateSettingsQuery, [
       name,
       about,
       contacts,
