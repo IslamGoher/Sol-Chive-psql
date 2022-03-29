@@ -4,7 +4,8 @@ import Joi from "joi";
 import { allowedTags } from "../../utils/allowed-tags";
 
 // @route   GET '/api/v1/anonymous/solutions/:email'
-export const validateGetAllSolutionsAnonymous = async (
+// validate email in path
+export const validateEmail = async (
   req: Request,
   res: Response,
   next: NextFunction

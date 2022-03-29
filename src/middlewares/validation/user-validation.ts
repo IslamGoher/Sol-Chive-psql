@@ -3,6 +3,7 @@ import { ErrorResponse } from "../../utils/error-response";
 import Joi from "joi";
 
 // @route   GET '/api/v1/user?email'
+// validate email in query
 export const validateUserEmail = async (
   req: Request,
   res: Response,

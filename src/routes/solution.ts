@@ -9,7 +9,7 @@ import {
   updateSolution,
 } from "../controllers/solution";
 import {
-  validateGetAllSolutionsAnonymous,
+  validateEmail,
   validateSolutionId,
   validateSolution,
 } from "../middlewares/validation/solution-validation";
@@ -22,7 +22,7 @@ export const router: Router = express.Router();
 // @access  public
 router.get(
   "/anonymous/solutions/:email",
-  validateGetAllSolutionsAnonymous,
+  validateEmail,
   getAllSolutionsAnonymous
 );
 
