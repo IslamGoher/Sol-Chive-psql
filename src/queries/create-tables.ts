@@ -1,9 +1,11 @@
-import { pool } from "../database/pool";
+import { client } from "../database/client";
 
 // create tables
-export async function createTables() {
+async function createTables() {
   try {
-    await pool.query(`
+    await client.connect();
+
+    await client.query(`
       CREATE TABLE IF NOT EXISTS users(
         user_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
         name VARCHAR (255) NOT NULL,
@@ -27,6 +29,8 @@ export async function createTables() {
         user_id INT REFERENCES users(user_id) ON DELETE CASCADE
       );
     `);
+    
+    await client.end();
   
     // eslint-disable-next-line no-console
     console.log("database tables created");
@@ -37,3 +41,5 @@ export async function createTables() {
   }
   
 }
+
+createTables();

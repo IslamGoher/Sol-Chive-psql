@@ -8,7 +8,11 @@
     "start": "cross-env NODE_ENV=production node dist/app.js",
     "dev": "cross-env NODE_ENV=development nodemon --files src/app.ts",
     "lint": "eslint ./src . --ext .ts",
-    "lint-fix": "eslint ./src . --ext .ts --fix"
+    "lint-fix": "eslint ./src . --ext .ts --fix",
+    "create-db": "node ./dist/queries/create-db.js",
+    "create-db-dev": "ts-node ./src/queries/create-db.ts",
+    "create-tables": "node ./dist/queries/create-tables.js",
+    "create-tables-dev": "ts-node ./src/queries/create-tables.ts"
   },
   "repository": {
     "type": "git",

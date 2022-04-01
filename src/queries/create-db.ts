@@ -1,7 +1,7 @@
 import { client } from "../database/client";
 
 // check if database exists, if not then create it
-export async function createDB() {
+async function createDB() {
   try {
     await client.connect();
   
@@ -26,3 +26,5 @@ export async function createDB() {
     console.error(error);
   }
 }
+
+createDB();

@@ -4,8 +4,6 @@ dotenv.config({ path: __dirname + "/../.env" });
 import morgan from "morgan";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./docs/swagger.json";
-import { createDB } from "./queries/create-db";
-import { createTables } from "./queries/create-tables";
 import { errorHandler } from "./middlewares/error-handler";
 import { notFound } from "./controllers/not-found";
 import { router as userRouter } from "./routes/user";
@@ -15,14 +13,6 @@ import { router as authRouter } from "./routes/auth";
 const app: Application = express();
 
 const port = process.env.PORT || 3000;
-
-(async function () {
-  // create database
-  await createDB();
-
-  // create tables
-  await createTables();
-})();
 
 // morgan configuration
 if (process.env.NODE_ENV === "development") {
