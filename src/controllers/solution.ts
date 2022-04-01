@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import {
-  getSolutionAnonymousQuery,
+  oneSolutionAnonymousQuery,
   solutionsAnonymousQueries,
-  getAllSolutionsAuthQueries,
-  getOneSolutionAuthQuery,
-  deleteSolutionQuery,
-  addSolutionQuery,
-  updateSolutionQuery
+  SolutionsAuthQueries,
+  oneSolutionAuthQuery,
+  queryToDeleteSolution,
+  queryToAddSolution,
+  queryToUpdateSolution
 } from "../queries/api-queries";
 import { pool } from "../database/pool";
 import { getSortingQuery } from "../utils/sort-database";
@@ -100,7 +100,7 @@ export const getOneSolutionAnonymous = async (
   try {
     const solutionId = req.params.solutionId;
 
-    const solutionData = await pool.query(getSolutionAnonymousQuery, [
+    const solutionData = await pool.query(oneSolutionAnonymousQuery, [
       solutionId
     ]);
 
@@ -150,7 +150,7 @@ export const getAllSolutionsAuth = async (
     const pagiantionQuery = getPaginationQuery(pageNumber, SOLUTION_NUMBER_PER_PAGE);
 
     const solutionsData = await pool.query(
-      `${getAllSolutionsAuthQueries.solutions}
+      `${SolutionsAuthQueries.solutions}
       ${filterBySource}
       ${filterByTag}
       ${filterByPerfectSolution!}
@@ -164,7 +164,7 @@ export const getAllSolutionsAuth = async (
 
     // find solutions count
     const solutionCountData = await pool.query(
-      `${getAllSolutionsAuthQueries.solutionsCount}
+      `${SolutionsAuthQueries.solutionsCount}
       ${filterBySource}
       ${filterByTag}
       ${filterByPerfectSolution!}
@@ -201,7 +201,7 @@ export const getOneSolutionAuth = async (
     const solutionId = req.params.solutionId;
 
     const solutionData = await pool.query(
-      getOneSolutionAuthQuery,
+      oneSolutionAuthQuery,
       [solutionId, userId]
     );
 
@@ -229,7 +229,7 @@ export const deleteSolution = async (
     const userId = req.user.id;
 
     const data = await pool.query(
-      deleteSolutionQuery,
+      queryToDeleteSolution,
       [solutionId, userId]
     );
     
@@ -269,7 +269,7 @@ export const addSolution = async (
 
     const source = extractDomain(link);
 
-    const solutionData = await pool.query(addSolutionQuery, [
+    const solutionData = await pool.query(queryToAddSolution, [
       title,
       link,
       source,
@@ -312,7 +312,7 @@ export const updateSolution = async (
 
     const source = extractDomain(link);
 
-    const solutionData = await pool.query(updateSolutionQuery, [
+    const solutionData = await pool.query(queryToUpdateSolution, [
       title,
       link,
       source,

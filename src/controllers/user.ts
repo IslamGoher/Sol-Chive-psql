@@ -3,11 +3,11 @@ import { pool } from "../database/pool";
 import { ErrorResponse } from "../utils/error-response";
 import {
   basicInfoQuery,
-  getRefreshToken,
-  updateAvatarQuery,
-  userProfileQueries,
+  queryToGetRefreshToken,
+  queryToUpdateAvatar,
+  userProfileQuery,
   userSettingsQuery,
-  updateSettingsQuery,
+  queryToUpdateUserSettings,
 } from "../queries/api-queries";
 import { getAccessToken } from "../utils/get-access-token";
 import { getAvatarUrl } from "../utils/get-avatar-url";
@@ -22,7 +22,7 @@ export const getFullUserProfile = async (
 ) => {
   try {
     // get user data
-    const userData = await pool.query(userProfileQueries, [req.query.email]);
+    const userData = await pool.query(userProfileQuery, [req.query.email]);
 
     // check if email matches
     if (userData.rowCount === 0) {
@@ -69,7 +69,7 @@ export const updateAvatar = async (
 
     const userId = req.user.id;
 
-    const OauthData = await pool.query(getRefreshToken, [userId]);
+    const OauthData = await pool.query(queryToGetRefreshToken, [userId]);
 
     const refreshToken = OauthData.rows[0].refresh_token;
     const loginWebsite = OauthData.rows[0].login_website;
@@ -78,7 +78,7 @@ export const updateAvatar = async (
     
     const newAvatar = await getAvatarUrl(`${accessToken}`, loginWebsite);
 
-    await pool.query(updateAvatarQuery, [newAvatar, userId]);
+    await pool.query(queryToUpdateAvatar, [newAvatar, userId]);
 
     res.status(200).json({
       picture: newAvatar
@@ -124,7 +124,7 @@ export const putUserSettings = async (
     const about = req.body.about || "";
     const contacts = req.body.contacts || "";
 
-    await pool.query(updateSettingsQuery, [
+    await pool.query(queryToUpdateUserSettings, [
       name,
       about,
       contacts,

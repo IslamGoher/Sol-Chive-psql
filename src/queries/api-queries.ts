@@ -1,5 +1,5 @@
 // database querie of api "get full user profile"
-export const userProfileQueries = `
+export const userProfileQuery = `
   SELECT
     name, picture, email, about, contacts,
     COUNT(solution_id) AS problem_count
@@ -41,7 +41,8 @@ export const solutionsAnonymousQueries = {
   `,
 };
 
-export const getSolutionAnonymousQuery = `
+// database query to list one solution for Anonymous user
+export const oneSolutionAnonymousQuery = `
   SELECT
     solution_id, created_on,
     title, link, source,
@@ -52,7 +53,7 @@ export const getSolutionAnonymousQuery = `
     solution_id = $1;
 `;
 
-export const findUser = `
+export const queryToFindUser = `
   SELECT
     user_id
   FROM
@@ -61,7 +62,7 @@ export const findUser = `
     email = $1;
 `;
 
-export const updateRefreshToken = `
+export const queryToUpdateRefreshToken = `
   UPDATE
     users
   SET
@@ -71,7 +72,7 @@ export const updateRefreshToken = `
     user_id = $3;
 `;
 
-export const addUser = `
+export const QueryToAddUser = `
   INSERT INTO
     users (
       name, picture, email,
@@ -81,7 +82,7 @@ export const addUser = `
   RETURNING user_id;
 `;
 
-export const getAllSolutionsAuthQueries = {
+export const SolutionsAuthQueries = {
   solutions: `
     SELECT
       solution_id, created_on, title,
@@ -118,7 +119,7 @@ export const getAllSolutionsAuthQueries = {
   `
 };
 
-export const getOneSolutionAuthQuery = `
+export const oneSolutionAuthQuery = `
   SELECT
     solution_id, created_on,
     title, link, source, tags,
@@ -130,7 +131,7 @@ export const getOneSolutionAuthQuery = `
     user_id = $2;
 `;
 
-export const deleteSolutionQuery = `
+export const queryToDeleteSolution = `
   DELETE FROM
     solutions
   WHERE
@@ -148,7 +149,7 @@ export const basicInfoQuery = `
     user_id = $1;
 `;
 
-export const getRefreshToken = `
+export const queryToGetRefreshToken = `
   SELECT
     refresh_token, login_website
   FROM
@@ -157,7 +158,7 @@ export const getRefreshToken = `
     user_id = $1;
 `;
 
-export const updateAvatarQuery = `
+export const queryToUpdateAvatar = `
   UPDATE
     users
   SET
@@ -166,7 +167,7 @@ export const updateAvatarQuery = `
     user_id = $2;
 `;
 
-export const addSolutionQuery = `
+export const queryToAddSolution = `
   INSERT INTO
     solutions(
       created_on, title,
@@ -183,7 +184,7 @@ export const addSolutionQuery = `
       solution_id;
 `;
 
-export const updateSolutionQuery = `
+export const queryToUpdateSolution = `
   UPDATE
     solutions
   SET
@@ -209,7 +210,7 @@ export const userSettingsQuery = `
     user_id = $1;
 `;
 
-export const updateSettingsQuery = `
+export const queryToUpdateUserSettings = `
   UPDATE
     users
   SET

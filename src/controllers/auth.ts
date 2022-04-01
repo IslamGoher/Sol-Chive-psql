@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { google } from "googleapis";
 import axios from "axios";
 import { pool } from "../database/pool";
-import { findUser, updateRefreshToken, addUser } from "../queries/api-queries";
+import { queryToFindUser, queryToUpdateRefreshToken, QueryToAddUser } from "../queries/api-queries";
 import { login } from "../utils/login";
 
 // @route   GET '/api/v1/auth/google'
@@ -64,13 +64,13 @@ export const getGoogleCallback = async (
     const { data } = await axios.get(googleOauthUrl);
 
     // find user
-    const userData = await pool.query(findUser, [data.email]);
+    const userData = await pool.query(queryToFindUser, [data.email]);
 
     if (userData.rowCount > 0) {
       const userId = userData.rows[0].user_id;
 
       // update refresh token
-      await pool.query(updateRefreshToken, [
+      await pool.query(queryToUpdateRefreshToken, [
         "google",
         tokens.refresh_token,
         userId,
@@ -80,7 +80,7 @@ export const getGoogleCallback = async (
       login({ id: userId }, res);
     } else {
       // create user
-      const userId = await pool.query(addUser, [
+      const userId = await pool.query(QueryToAddUser, [
         data.name,
         data.picture,
         data.email,
