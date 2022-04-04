@@ -22,7 +22,8 @@ export const solutionsAnonymousQueries = {
     LEFT JOIN solutions as s
     ON s.user_id = u.user_id
     WHERE
-      u.email = $1
+      u.email = $1 AND
+      s.solution_id IS NOT NULL
   `,
   solutionCount: `
     SELECT
