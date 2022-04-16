@@ -92,10 +92,13 @@ export const getGoogleCallback = async (
       login({ id: userId.rows[0].user_id }, res);
     }
 
-    res.status(200).json({
-      code: 200,
-      message: "user logged in successfully",
-    });
+    res.cookie("isLoggedIn", true);
+
+    res.redirect(`${process.env.CLIENT_HOME_URL}`);
+    // res.status(200).json({
+    //   code: 200,
+    //   message: "user logged in successfully",
+    // });
   } catch (error) {
     next(error);
   }
@@ -111,6 +114,7 @@ export const logout = async (
 ) => {
   try {
     res.clearCookie("token");
+    res.cookie("isLoggedIn", false);
     res.status(204).end();
 
   } catch (error) {
