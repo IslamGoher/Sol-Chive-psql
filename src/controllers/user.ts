@@ -5,7 +5,7 @@ import {
   basicInfoQuery,
   queryToGetRefreshToken,
   queryToUpdateAvatar,
-  userProfileQuery,
+  userProfileQueries,
   userSettingsQuery,
   queryToUpdateUserSettings,
 } from "../queries/api-queries";
@@ -22,7 +22,9 @@ export const getFullUserProfile = async (
 ) => {
   try {
     // get user data
-    const userData = await pool.query(userProfileQuery, [req.query.email]);
+    const userData = await pool.query(userProfileQueries.userData, [
+      req.query.email
+    ]);
 
     // check if email matches
     if (userData.rowCount === 0) {
@@ -30,6 +32,16 @@ export const getFullUserProfile = async (
         new ErrorResponse(404, "there's no such user with given email")
       );
     }
+
+    // get problem count of user
+    const solutionCount = await pool.query(userProfileQueries.solutionCount, [
+      req.query.email
+    ]);
+
+    if (solutionCount.rowCount === 0)
+      solutionCount.rows[0] = { problem_count: 0 };
+
+    userData.rows[0].problem_count = solutionCount.rows[0].problem_count;
 
     // send response
     res.status(200).json(userData.rows[0]);

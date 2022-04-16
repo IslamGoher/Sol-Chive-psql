@@ -1,15 +1,24 @@
 // database querie of api "get full user profile"
-export const userProfileQuery = `
+export const userProfileQueries = {
+  userData: `
   SELECT
-    name, picture, email, about, contacts,
-    COUNT(solution_id) AS problem_count
+    name, picture, email, about, contacts
   FROM
-    users, solutions
+    users
   WHERE
-    users.email = $1 AND solutions.user_id = users.user_id
-  GROUP BY
-    users.user_id;
-`;
+    users.email = $1;
+  `,
+  solutionCount: `
+    SELECT 
+      COUNT(solution_id) AS problem_count
+    FROM
+      solutions, users
+    WHERE
+      users.email  = $1 AND
+      users.user_id = solutions.user_id
+    GROUP BY users.user_id;
+  `
+};
 
 // database querie of api "list all solutions for anonymous user"
 export const solutionsAnonymousQueries = {
