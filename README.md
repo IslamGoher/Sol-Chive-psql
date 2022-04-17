@@ -73,20 +73,22 @@ $ npm run build && npm start
 
 2. `CLIENT_DOMAIN` = domain name that server will allow against CORS policy, example: `*`
 
-3. `JWT_SECRET` = any string secret, example: `my secret`
+3. `CLIENT_HOME_URL` = URL to home page of front end server, example: `http://localhost:5000/home`
 
-4. `PG_CLIENT_URI` = connection url to postgres server, to create database and tables, example: `postgres://postgres:123456@localhost:5432/postgres`
+4. `JWT_SECRET` = any string secret, example: `my secret`
 
-5. `PG_POOL_URI` = connection url to postgres server, to connect with created database, example: `postgres://postgres:123456@localhost:5432/solchive`
+5. `PG_CLIENT_URI` = connection url to postgres server, to create database and tables, example: `postgres://postgres:123456@localhost:5432/postgres`
 
-6. `PG_DB` = database name that wanted create, example: `solchive`
+6. `PG_POOL_URI` = connection url to postgres server, to connect with created database, example: `postgres://postgres:123456@localhost:5432/solchive`
 
-7. `GOOGLE_CLIENT_ID` = the client id of google console application, example: `********.apps.googleusercontent.com`
+7. `PG_DB` = database name that wanted create, example: `solchive`
 
-8. `GOOGLE_CLIENT_SECRET` = the secret of google console application, example: `********`
+8. `GOOGLE_CLIENT_ID` = the client id of google console application, example: `********.apps.googleusercontent.com`
 
-9. `GOOGLE_REDIRECT_URI` = redirection url that login and signup the user, <ins>set to</ins>: `http://localhost:<port>/api/v1/auth/google/callback`
+9. `GOOGLE_CLIENT_SECRET` = the secret of google console application, example: `********`
 
-10. `GOOGLE_GET_DATA_URL` = google api url to get user data, <ins>set to</ins>: `https://www.googleapis.com/oauth2/v3/userinfo?access_token=`
+10. `GOOGLE_REDIRECT_URI` = redirection url that login and signup the user, <ins>set to</ins>: `http://localhost:<port>/api/v1/auth/google/callback`
 
-11. `GOOGLE_GET_ACCESS_TOKEN_URL` = google api url to get access token, <ins>set to</ins>: `https://www.googleapis.com/oauth2/v4/token`
+11. `GOOGLE_GET_DATA_URL` = google api url to get user data, <ins>set to</ins>: `https://www.googleapis.com/oauth2/v3/userinfo?access_token=`
+
+12. `GOOGLE_GET_ACCESS_TOKEN_URL` = google api url to get access token, <ins>set to</ins>: `https://www.googleapis.com/oauth2/v4/token`
