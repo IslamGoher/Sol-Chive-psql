@@ -29,7 +29,6 @@ export const getAllSolutionsAnonymous = async (
     const sortbydate = `${req.query.sortbydate}`;
     const source = `${req.query.source}`;
     const tag = `${req.query.tag}`;
-    const perfectSolution = `${req.query.perfectsolution}`;
     const page = `${req.query.page}`;
 
     // sort solutions by date
@@ -38,9 +37,8 @@ export const getAllSolutionsAnonymous = async (
     // filter by 'source', 'tag', 'perfect_solution'
     const {
       filterBySource,
-      filterByTag,
-      filterByPerfectSolution 
-    } = getFilteringQueries(source, tag, perfectSolution);
+      filterByTag
+    } = getFilteringQueries(source, tag, "");
 
     // pagination
     let pageNumber = parseInt(page);
@@ -55,7 +53,6 @@ export const getAllSolutionsAnonymous = async (
       `${solutionsAnonymousQueries.solutions}
       ${filterBySource}
       ${filterByTag}
-      ${filterByPerfectSolution!}
       ${sortBy}
       ${pagiantionQuery};`,
       [email]
@@ -69,7 +66,6 @@ export const getAllSolutionsAnonymous = async (
       `${solutionsAnonymousQueries.solutionCount}
       ${filterBySource}
       ${filterByTag}
-      ${filterByPerfectSolution!}
       GROUP BY s.solution_id) AS t;
       `,
       [email]
