@@ -172,15 +172,6 @@
             "schema": {
               "type": "string"
             }
-          },
-          {
-            "name": "perfectsolution",
-            "in": "query",
-            "required": false,
-            "description": "chose solutions that must has perfect solution in it",
-            "schema": {
-              "type": "boolean"
-            }
           }
         ],
         "responses": {
@@ -1269,6 +1260,10 @@
                     "picture": {
                       "type": "string",
                       "description": "link to user picture"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "user email"
                     }
                   }
                 }

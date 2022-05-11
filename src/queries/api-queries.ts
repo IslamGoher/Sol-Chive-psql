@@ -152,7 +152,7 @@ export const queryToDeleteSolution = `
 
 export const basicInfoQuery = `
   SELECT
-    name, picture
+    name, picture, email
   FROM
     users
   WHERE
