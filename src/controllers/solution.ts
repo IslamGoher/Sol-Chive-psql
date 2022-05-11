@@ -262,7 +262,7 @@ export const addSolution = async (
     const title = req.body.title;
     const link = req.body.link;
     const mySolution = req.body.mySolution;
-    const perfectSolution = req.body.perfectSolution || "";
+    const perfectSolution = req.body.perfectSolution || null;
     
     const tags: string[] = req.body.tags || [];
     const tagsInQuery = `{ ${tags.join(", ")} }`;
