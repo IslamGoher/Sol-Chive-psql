@@ -28,7 +28,7 @@
   "paths": {
     "/api/v1/user": {
       "get": {
-        "summary": "Get full user profile for authenticated or Anonymous user",
+        "summary": "Get full user profile for Anonymous user",
         "tags": ["User"],
         "description": "Get user data for user profile page.",
         "parameters": [
@@ -113,6 +113,91 @@
                     "message": {
                       "type": "string",
                       "description": "message that inform user what is the problem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/profile": {
+      "get": {
+        "summary": "Get full user profile for Authenticated user",
+        "tags": ["User"],
+        "description": "Get user data for user profile page.",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "user name"
+                    },
+                    "picture": {
+                      "type": "string",
+                      "description": "link to user picture"
+                    },
+                    "email": {
+                      "type": "string",
+                      "description": "user email"
+                    },
+                    "about": {
+                      "type": "string",
+                      "description": "about the user"
+                    },
+                    "contacts": {
+                      "type": "string",
+                      "description": "user contacts such as phone number and linkedin profile"
+                    },
+                    "problem_count": {
+                      "type": "integer",
+                      "description": "description user wrote about him self"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthenticated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "user isn't authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number",
+                      "description": "status code"
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "user isn't authorized to access this content"
                     }
                   }
                 }
@@ -1260,10 +1345,6 @@
                     "picture": {
                       "type": "string",
                       "description": "link to user picture"
-                    },
-                    "email": {
-                      "type": "string",
-                      "description": "user email"
                     }
                   }
                 }

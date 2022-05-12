@@ -8,12 +8,13 @@ import {
   userProfileQueries,
   userSettingsQuery,
   queryToUpdateUserSettings,
+  userProfileQueriesForAuthUser,
 } from "../queries/api-queries";
 import { getAccessToken } from "../utils/get-access-token";
 import { getAvatarUrl } from "../utils/get-avatar-url";
 
 // @route   GET '/api/v1/user?email'
-// @desc    get full user profile
+// @desc    get full user profile for anonymous user
 // @access  public
 export const getFullUserProfile = async (
   req: Request,
@@ -36,6 +37,39 @@ export const getFullUserProfile = async (
     // get problem count of user
     const solutionCount = await pool.query(userProfileQueries.solutionCount, [
       req.query.email
+    ]);
+
+    if (solutionCount.rowCount === 0)
+      solutionCount.rows[0] = { problem_count: 0 };
+
+    userData.rows[0].problem_count = solutionCount.rows[0].problem_count;
+
+    // send response
+    res.status(200).json(userData.rows[0]);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @route   GET '/api/v1/user/profile'
+// @desc    get full user profile for authenticated user
+// @access  private
+export const getFullUserProfileForAuth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.user.id;
+
+    // get user data
+    const userData = await pool.query(userProfileQueriesForAuthUser.userData, [
+      userId
+    ]);
+
+    // get problem count of user
+    const solutionCount = await pool.query(userProfileQueriesForAuthUser.solutionCount, [
+      userId
     ]);
 
     if (solutionCount.rowCount === 0)
